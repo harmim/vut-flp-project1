@@ -3,7 +3,7 @@
   Author: Dominik Harmim <xharmi00@stud.fit.vutbr.cz>
   Year: 2020
   Module: Simplification
-  Description: An implementation of the simplification of the context-free
+  Description: An implementation of the simplification of a context-free
                grammar algorithm.
 -}
 
@@ -19,7 +19,7 @@ import Parser (epsSymbol)
 import Types (CFG(..), Rules, Symbols)
 
 
--- Converts the input grammar to the form where there are only nonterminal
+-- Converts an input grammar to the form where there are only nonterminal
 -- symbols that generates terminal strings.
 simplify1 :: CFG -> CFG
 simplify1 CFG{..} = CFG
@@ -47,13 +47,13 @@ terminatingNonterminals rules terminals n0 =
       filter (all (`elem` n0 ++ terminals ++ [epsSymbol]) . snd) rules
 
 
--- Converts the input grammar to the form where there are only nonterminal
+-- Converts an input grammar to the form where there are only nonterminal
 -- symbols that generates terminal strings and where there are only reachable
 -- symbols.
 simplify2 :: CFG -> CFG
 simplify2 = removeUnreachableSymbols . simplify1
 
--- Removes unreachable symbols from the input grammar.
+-- Removes unreachable symbols from an input grammar.
 removeUnreachableSymbols :: CFG -> CFG
 removeUnreachableSymbols CFG{..} = CFG
   { nonterminals= nonterminals'

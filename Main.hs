@@ -26,7 +26,7 @@ main = do
   either die action $ parseCFG input
 
 
--- Processes input arguments and returns an action to be performed and the
+-- Processes input arguments and returns an action to be performed and an
 -- input file.
 processArgs :: [String] -> IO (CFG -> IO (), String)
 processArgs [option] = processOptions option =<< getContents
@@ -34,7 +34,7 @@ processArgs [option, inputFile] = processOptions option =<< readFile inputFile
 processArgs _ = die "Excepting an option argument and optionally the input \
   \file: simplify-bkg (-i|-1|-2) [input-file]"
 
--- Processes input options and returns an action to be performed and the
+-- Processes input options and returns an action to be performed and an
 -- input file.
 processOptions :: String -> String -> IO (CFG -> IO (), String)
 processOptions option input = case option of
@@ -44,18 +44,18 @@ processOptions option input = case option of
   _ -> die $ "Unknown option: " ++ option
 
 
--- Prints the context-free grammar to the standard output.
+-- Prints a context-free grammar to the standard output.
 printCFG :: CFG -> IO ()
 printCFG = putStr . show
 
 
--- Prints the context-free grammar to the standard output after the 'simplify1'
+-- Prints a context-free grammar to the standard output after the 'simplify1'
 -- function has been performed.
 printCFGSimplify1 :: CFG -> IO ()
 printCFGSimplify1 = printCFG . simplify1
 
 
--- Prints the context-free grammar to the standard output after the 'simplify2'
+-- Prints a context-free grammar to the standard output after the 'simplify2'
 -- function has been performed.
 printCFGSimplify2 :: CFG -> IO ()
 printCFGSimplify2 = printCFG . simplify2
