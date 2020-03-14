@@ -7,7 +7,54 @@
                Initiates the computation.
 -}
 
+
 module Main (main) where
 
+
+import Parser (parseCFG)
+import Simplification (simplify1, simplify2)
+import System.Environment (getArgs)
+import System.Exit (die)
+import Types (CFG(..))
+
+
+-- The main program.
 main :: IO ()
-main = return ()
+main = do
+  (action, input) <- processArgs =<< getArgs
+  either die action $ parseCFG input
+
+
+-- Processes input arguments and returns an action to be performed and the
+-- input file.
+processArgs :: [String] -> IO (CFG -> IO (), String)
+processArgs [option] = processOptions option =<< getContents
+processArgs [option, inputFile] = processOptions option =<< readFile inputFile
+processArgs _ = die "Excepting an option argument and optionally the input \
+  \file: simplify-bkg (-i|-1|-2) [input-file]"
+
+-- Processes input options and returns an action to be performed and the
+-- input file.
+processOptions :: String -> String -> IO (CFG -> IO (), String)
+processOptions option input = case option of
+  "-i" -> return (printCFG, input)
+  "-1" -> return (printCFGSimplify1, input)
+  "-2" -> return (printCFGSimplify2, input)
+  _ -> die $ "Unknown option: " ++ option
+
+
+-- Prints the context-free grammar to the standard output.
+printCFG :: CFG -> IO ()
+printCFG = putStr . show
+
+
+-- Prints the context-free grammar to the standard output after the 'simplify1'
+-- function has been performed.
+printCFGSimplify1 :: CFG -> IO ()
+printCFGSimplify1 = printCFG . simplify1
+
+
+-- Prints the context-free grammar to the standard output after the 'simplify2'
+-- function has been performed.
+printCFGSimplify2 :: CFG -> IO ()
+printCFGSimplify2 = printCFG . simplify2

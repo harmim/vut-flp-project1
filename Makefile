@@ -4,11 +4,11 @@ ARGS := -i
 PACK := flp-fun-xharmi00
 
 
-.PHONY: buildm
+.PHONY: build
 build: $(OUT)
 
-$(OUT):
-	ghc --make -o $@ *.hs
+$(OUT): *.hs
+	ghc --make -o $@ $^
 
 
 .PHONY: run
@@ -16,15 +16,11 @@ run: $(OUT)
 	./$< $(ARGS)
 
 
-.PHONY: tests
-tests: $(OUT)
-
-
 .PHONY: pack
 pack: $(PACK).zip
 
-$(PACK).zip:
-	zip -r $@ Makefile README.md *.hs
+$(PACK).zip: Makefile README.md *.hs
+	zip -r $@ $^
 
 
 .PHONY: clean

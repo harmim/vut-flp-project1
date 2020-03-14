@@ -96,9 +96,9 @@ fi
 if [ "$?" == "1" ]
 then
 	((ok++))
-	echo -e "./simplify-bkg -i < tests/test01.in [${GREEN}OK${NC}]"
+	echo -e "./simplify-bkg < tests/test01.in [${GREEN}OK${NC}]"
 else
-	echo -e "./simplify-bkg -i < tests/test01.in [${RED}BAD${NC}]"
+	echo -e "./simplify-bkg < tests/test01.in [${RED}BAD${NC}]"
 fi
 
 ((total++))
