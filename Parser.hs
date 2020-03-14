@@ -14,7 +14,7 @@
 module Parser (parseCFG, epsSymbol) where
 
 
-import Control.Applicative ((<|>))
+import Control.Applicative ((<$>), (<*>), (<*), (<|>))
 import Control.Arrow (left)
 import Control.Monad ((<=<))
 import Data.List (group, sort)

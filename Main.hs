@@ -14,7 +14,8 @@ module Main (main) where
 import Parser (parseCFG)
 import Simplification (simplify1, simplify2)
 import System.Environment (getArgs)
-import System.Exit (die)
+import System.Exit (exitFailure)
+import System.IO (hPutStrLn, stderr)
 import Types (CFG(..))
 
 
@@ -58,3 +59,8 @@ printCFGSimplify1 = printCFG . simplify1
 -- function has been performed.
 printCFGSimplify2 :: CFG -> IO ()
 printCFGSimplify2 = printCFG . simplify2
+
+
+-- Terminates the program with an error code and error message.
+die :: String -> IO a
+die str = hPutStrLn stderr str >> exitFailure
