@@ -3,7 +3,7 @@
   Author: Dominik Harmim <xharmi00@stud.fit.vutbr.cz>
   Year: 2020
   Module: Types
-  Description: Definitions of data types. The internal representation of a
+  Description: Definitions of data types. The internal representation of the
                context-free grammar.
 -}
 
@@ -31,7 +31,7 @@ type Rule = (Symbol, Symbols)
 type Rules = [Rule]
 
 
--- A context-free grammar (CFG) is represented by a list of nonterminal
+-- The context-free grammar (CFG) is represented by a list of nonterminal
 -- symbols, a list of terminal symbols, the starting nonterminal symbol,
 -- and a list of production rules.
 data CFG = CFG
@@ -40,7 +40,7 @@ data CFG = CFG
   , startingSymbol :: Symbol
   , rules :: Rules }
 
--- The definition of showing a CFG.
+-- The definition of showing the CFG.
 instance Show CFG where
   show CFG{..} = unlines $
     [intercalate "," $ map (: []) nonterminals] ++

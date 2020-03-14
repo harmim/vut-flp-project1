@@ -3,7 +3,7 @@
   Author: Dominik Harmim <xharmi00@stud.fit.vutbr.cz>
   Year: 2020
   Module: Simplification
-  Description: An implementation of the simplification of a context-free
+  Description: An implementation of the simplification of the context-free
                grammar algorithm.
 -}
 
@@ -20,7 +20,7 @@ import Types (CFG(..), Rules, Symbols)
 
 
 -- Converts an input grammar to the form where there are only nonterminal
--- symbols that generates terminal strings.
+-- symbols that generate terminal strings.
 simplify1 :: CFG -> CFG
 simplify1 CFG{..} = CFG
   { nonterminals= nonterminals'
@@ -38,7 +38,7 @@ simplify1 CFG{..} = CFG
         && all (`elem` terminatingNonterminals' ++ terminals ++ [epsSymbol]) r
       ) rules
 
--- Computes a list of nonterminal symbols that generates terminal strings.
+-- Computes a list of nonterminal symbols that generate terminal strings.
 terminatingNonterminals :: Rules -> Symbols -> Symbols -> Symbols
 terminatingNonterminals rules terminals n0 =
   if n0 == n1 then nub n1 else terminatingNonterminals rules terminals n1
@@ -48,7 +48,7 @@ terminatingNonterminals rules terminals n0 =
 
 
 -- Converts an input grammar to the form where there are only nonterminal
--- symbols that generates terminal strings and where there are only reachable
+-- symbols that generate terminal strings and where there are only reachable
 -- symbols.
 simplify2 :: CFG -> CFG
 simplify2 = removeUnreachableSymbols . simplify1
